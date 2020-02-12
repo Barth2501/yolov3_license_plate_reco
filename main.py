@@ -13,17 +13,18 @@ from models import (
     yolo_anchors, yolo_anchor_masks
 )
 import dataset as dataset
+from utils import *
 
 flags.DEFINE_string('dataset', '', 'path to dataset')
-flags.DEFINE_string('classes', './data/plaques.numbers', 'path to classes file')
+flags.DEFINE_string('classes', './data/license.plate', 'path to classes file')
 flags.DEFINE_string('weights', './checkpoints/yolov3.tf',
                     'path to weights file')
 flags.DEFINE_integer('batch_size', 8, 'batch size')
 flags.DEFINE_string('output_dir', os.path.join('..', 'outputs'), "")
 flags.DEFINE_integer('size', 416, 'image size')
-flags.DEFINE_integer('num_classes', 10, 'number of classes in the model')
+flags.DEFINE_integer('num_classes', 80, 'number of classes in the model')
 flags.DEFINE_float('learning_rate', 1e-3, 'learning rate')
-flags.DEFINE_integer('epochs', 2, 'number of epochs')
+flags.DEFINE_integer('epochs', 8, 'number of epochs')
 
 
 def main(argv):
@@ -89,17 +90,17 @@ def main(argv):
                 epoch, batch, total_loss.numpy(),
                 list(map(lambda x: np.sum(x.numpy()), pred_loss))))
             avg_loss.update_state(total_loss)
-        for batch, (images, labels) in enumerate(val_dataset):
-            outputs = model(images)
-            regularization_loss = tf.reduce_sum(model.losses)
-            pred_loss = []
-            for output, label, loss_fn in zip(outputs, labels, loss):
-                pred_loss.append(loss_fn(label, output))
-            total_loss = tf.reduce_sum(pred_loss) + regularization_loss
-            logging.info("{}_val_{}, {}, {}".format(
-                epoch, batch, total_loss.numpy(),
-                list(map(lambda x: np.sum(x.numpy()), pred_loss))))
-            avg_val_loss.update_state(total_loss)
+        # for batch, (images, labels) in enumerate(val_dataset):
+        #     outputs = model(images)
+        #     regularization_loss = tf.reduce_sum(model.losses)
+        #     pred_loss = []
+        #     for output, label, loss_fn in zip(outputs, labels, loss):
+        #         pred_loss.append(loss_fn(label, output))
+        #     total_loss = tf.reduce_sum(pred_loss) + regularization_loss
+        #     logging.info("{}_val_{}, {}, {}".format(
+        #         epoch, batch, total_loss.numpy(),
+        #         list(map(lambda x: np.sum(x.numpy()), pred_loss))))
+        #     avg_val_loss.update_state(total_loss)
         logging.info("{}, train: {}, val: {}".format(
             epoch,
             avg_loss.result().numpy(),

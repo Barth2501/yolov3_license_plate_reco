@@ -30,7 +30,7 @@ FLAGS = flags.FLAGS
 
 # TO-DO replace this with label map
 def class_text_to_int(row_label):
-    if row_label == 'raccoon':
+    if row_label == 'license_plate':
         return 1
     else:
         None
@@ -64,8 +64,8 @@ def create_tf_example(group, path):
         ymins.append(row['ymin'] / height)
         ymaxs.append(row['ymax'] / height)
         classes_text.append(str(row['class']).encode('utf8'))
-        # classes.append(class_text_to_int(row['class']))
-        classes.append(int(row['class']))
+        classes.append(class_text_to_int(row['class']))
+        # classes.append(int(row['class']))
 
 
     tf_example = tf.train.Example(features=tf.train.Features(feature={
