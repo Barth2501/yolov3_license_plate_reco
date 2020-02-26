@@ -1,3 +1,4 @@
 data/yolov3.weights
-checkpoints/
+license_plate_detection/checkpoints/
+license_plate_detection/datasets/yolo/yolov3*
 __pychache__/

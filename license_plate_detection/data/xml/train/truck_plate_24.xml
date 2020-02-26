@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>truck_plate_24.jpg</filename>
+	<path>/home/lancelot/Documents/Projet_option/perso/images/train/truck_plate_24.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1600</width>
+		<height>1290</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>license_plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1108</xmin>
+			<ymin>668</ymin>
+			<xmax>1246</xmax>
+			<ymax>747</ymax>
+		</bndbox>
+	</object>
+</annotation>

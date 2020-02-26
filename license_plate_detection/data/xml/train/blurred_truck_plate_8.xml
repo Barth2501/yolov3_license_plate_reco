@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>blurred_truck_plate_8.jpg</filename>
+	<path>/home/lancelot/Documents/Projet_option/perso/images/train/blurred_truck_plate_8.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>825</width>
+		<height>621</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>license_plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>642</xmin>
+			<ymin>394</ymin>
+			<xmax>751</xmax>
+			<ymax>426</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,8 @@
+filename,width,height,class,xmin,ymin,xmax,ymax
+output_output_cropped1.jpg,9,24,1,1,1,9,23
+output_output_cropped6.jpg,14,26,6,1,1,14,25
+output_output_cropped3.jpg,15,25,3,1,1,14,25
+output_output_cropped7.jpg,13,25,4,1,1,12,24
+output_output_cropped2.jpg,13,25,3,1,1,12,24
+output_output_cropped5.jpg,14,26,0,1,1,13,26
+output_output_cropped4.jpg,15,25,0,1,1,15,24

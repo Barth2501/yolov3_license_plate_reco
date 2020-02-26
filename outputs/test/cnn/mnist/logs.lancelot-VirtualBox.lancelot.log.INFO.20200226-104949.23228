@@ -1,0 +1,6 @@
+I0226 10:49:49.234837 140574697215808 dataset_builder.py:184] Overwrite dataset info from restored data version.
+I0226 10:49:49.237440 140574697215808 dataset_builder.py:253] Reusing dataset mnist (../data/mnist/mnist/1.0.0)
+I0226 10:49:49.237636 140574697215808 dataset_builder.py:399] Constructing tf.data.Dataset for split train, from ../data/mnist/mnist/1.0.0
+I0226 10:49:49.565773 140574697215808 dataset_builder.py:184] Overwrite dataset info from restored data version.
+I0226 10:49:49.567928 140574697215808 dataset_builder.py:253] Reusing dataset mnist (../data/mnist/mnist/1.0.0)
+I0226 10:49:49.568085 140574697215808 dataset_builder.py:399] Constructing tf.data.Dataset for split test, from ../data/mnist/mnist/1.0.0

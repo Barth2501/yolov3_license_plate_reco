@@ -1,0 +1,26 @@
+<annotation>
+	<folder>valid</folder>
+	<filename>valid6.jpg</filename>
+	<path>/home/lancelot/Documents/Projet_option/perso/images/valid/valid6.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>480</width>
+		<height>270</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>license_plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>321</xmin>
+			<ymin>189</ymin>
+			<xmax>349</xmax>
+			<ymax>201</ymax>
+		</bndbox>
+	</object>
+</annotation>

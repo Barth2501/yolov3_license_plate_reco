@@ -1,0 +1,12 @@
+filename,width,height,class,xmin,ymin,xmax,ymax
+valid2.jpg,1024,681,license_plate,812,379,881,411
+valid7.jpg,800,533,license_plate,171,363,269,400
+valid0.JPG,0,0,license_plate,139,517,213,565
+valid4.jpg,680,473,license_plate,507,300,557,320
+valid3.jpg,800,599,license_plate,586,375,682,415
+valid5.jpg,1600,1200,license_plate,143,586,289,633
+valid6.jpg,480,270,license_plate,321,189,349,201
+valid10.jpg,256,341,license_plate,139,254,186,269
+valid8.jpg,1200,800,license_plate,394,611,510,667
+valid9.jpg,1600,1200,license_plate,1122,1008,1210,1042
+valid1.jpg,512,351,license_plate,277,213,330,225
