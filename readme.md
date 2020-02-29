@@ -48,6 +48,15 @@ On this model you can or :
             --yolo_learning_rate: learning rate of yolo model (default: 1e-3)
             --yolo_epochs: number of epochs of yolo model is (default: 8)
             
+
+        - batch detect license plate for the next step of the all model:
+
+            ```
+            $ python main.py --mode yolo_batch_detect
+            ```
+
+            This command will detect the license plate on images from a folder and will save the output on a predefine location. You can change the default settings using FLAGS.
+            
             if --mode yolo_batch_detect, you have:
             
             --classes: path to classes file
@@ -63,31 +72,62 @@ On this model you can or :
             --yolo_size: resize images to (default: 416)
             --num_classes: number of classes in the model (default: 80)
             
-            if --mode segment_only, you have:
             
-            --yolo_cropped_output: path to output cropped image
+### Character segmentation
+
+This step is used to separate each character of the license plate. It uses computer vision aspect but still suffers some issues. Next effort will be concentrate at this step to make it more adaptable to any license plate luminosity and shape.
+
+This can be done using the mode segment_only of the main.py file.
+```
+$ python main.py --mode segment_only
+```
+
+The FLAGS for this function are :
+            
+        --yolo_cropped_output: path to output cropped image
                 (default: './license_plate_detection/outputs/cropped_outputs/')
-            --seg_output: dir where you want to save the segmented characters
+        --seg_output: dir where you want to save the segmented characters
                 (default: './character_reco/data/jpg')
-            --image: Image you want to predict, to use only if batch detection is disabled (No default value)
-            --batch_detection: False (default) if you want to detect only one image
+        --image: Image you want to predict, to use only if batch detection is disabled 
+                (No default value)
+        --batch_detection: False 
+                (default) if you want to detect only one image
+
+### Character identification
+
+This final step is for the identification character by character. The model I used is a CNN model with two convolutionnal layers. Once again the model is pre-trained on the mnist dataset and then we fine tune it with the labelised character we got from the segmentation phase.
+
+So the mode you can use here is cnn_fine_tune, it allows you to perform the fine tunning of the last layers (second cnn and dense layers). 
+```
+$ python main.py --mode cnn_fine_tune
+```
+
+N.B.: Before training the cnn, you must have created a tfrecord file of the labelised data you had (See the labelisation section)
+
+The FLAGS you can use for this mode are :
             
-            if --mode cnn_fine_tune, you have:
-            
-            --cnn_train_dataset: Path to the train tfrecord dataset
+       --cnn_train_dataset: Path to the train tfrecord dataset
                 (default: './character_reco/data/tfrecord/train_character.tfrecord')
-            --cnn_val_dataset: Path to the val tfrecord dataset
+       --cnn_val_dataset: Path to the val tfrecord dataset
                 (default: './character_reco/data/tfrecord/val_character.tfrecord')
-            --cnn_size: The size we want to resize the number (default: 28)
-            --cnn_batch_size: Size of the batch (default: 1)
-            --cnn_learning_rate: Learning rate (default: 0.001)
-  
-         
-            
-        - batch detect license plate for the next step of the all model:
+       --cnn_size: The size we want to resize the number 
+                (default: 28)
+       --cnn_batch_size: Size of the batch 
+                (default: 1)
+       --cnn_learning_rate: Learning rate 
+                (default: 0.001)
 
-            ```
-            $ python main.py --mode yolo_batch_detect
-            ```
+## Labelisation
 
-            This command will detect the license plate on images from a folder and will save the output on a predefine location. You can change the default settings using FLAGS. 
+In order to fine tune the models (yolo or cnn), you will have to build tfrecord files of the labelised data.
+
+Personnally, I used labelImg application to perform that, it creates XML file in the folder I selected.
+Then I create a csv file form the XML ones and then a tfrecord, you should use this for example with the labelised images of license plate detection:
+
+```
+$ cd labelisation
+$ python xml_to_csv.py --img_path ./license_plate_detection/data/xml/train/ --save_name ./license_plate_detection/data/csv/train_plate.csv
+$ python generate_tfrecord --csv_input ./license_plate_detection/data/csv/train_plate.csv --output_path ./license_plate_detection/data/tfrecord/train_plate.tfrecord --image_dir ./license_plate_detection/data/jpg/train
+```
+
+
