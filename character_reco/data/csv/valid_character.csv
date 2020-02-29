@@ -1,0 +1,5 @@
+filename,width,height,class,xmin,ymin,xmax,ymax
+truck_plate_8_0_char_7.jpg,31,22,5,6,1,26,21
+output_cropped_char_7.jpg,42,24,4,10,1,35,24
+truck_plate_8_0_char_4.jpg,30,24,0,7,1,23,24
+test_0_0_char_5.jpg,27,9,1,6,1,20,9

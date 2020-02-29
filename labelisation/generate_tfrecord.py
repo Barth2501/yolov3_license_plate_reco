@@ -51,18 +51,18 @@ def create_tf_example(group, path):
 
     filename = group.filename.encode('utf8')
     image_format = b'jpg'
-    # xmins = []
-    # xmaxs = []
-    # ymins = []
-    # ymaxs = []
+    xmins = []
+    xmaxs = []
+    ymins = []
+    ymaxs = []
     classes_text = []
     classes = []
 
     for index, row in group.object.iterrows():
-        # xmins.append(row['xmin'] / width)
-        # xmaxs.append(row['xmax'] / width)
-        # ymins.append(row['ymin'] / height)
-        # ymaxs.append(row['ymax'] / height)
+        xmins.append(row['xmin'] / width)
+        xmaxs.append(row['xmax'] / width)
+        ymins.append(row['ymin'] / height)
+        ymaxs.append(row['ymax'] / height)
         classes_text.append(str(row['class']).encode('utf8'))
         #classes.append(class_text_to_int(row['class']))
         classes.append(int(row['class']))
@@ -74,10 +74,10 @@ def create_tf_example(group, path):
         'image/source_id': dataset_util.bytes_feature(filename),
         'image/encoded': dataset_util.bytes_feature(encoded_jpg),
         'image/format': dataset_util.bytes_feature(image_format),
-        # 'image/object/bbox/xmin': dataset_util.float_list_feature(xmins),
-        # 'image/object/bbox/xmax': dataset_util.float_list_feature(xmaxs),
-        # 'image/object/bbox/ymin': dataset_util.float_list_feature(ymins),
-        # 'image/object/bbox/ymax': dataset_util.float_list_feature(ymaxs),
+        'image/object/bbox/xmin': dataset_util.float_list_feature(xmins),
+        'image/object/bbox/xmax': dataset_util.float_list_feature(xmaxs),
+        'image/object/bbox/ymin': dataset_util.float_list_feature(ymins),
+        'image/object/bbox/ymax': dataset_util.float_list_feature(ymaxs),
         'image/object/class/text': dataset_util.bytes_list_feature(classes_text),
         'image/object/class/label': dataset_util.int64_list_feature(classes),
     }))

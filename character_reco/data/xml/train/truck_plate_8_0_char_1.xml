@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>truck_plate_8_0_char_1.jpg</filename>
+	<path>/home/lancelot/Documents/Projet_option/perso/character_reco/data/jpg/train/truck_plate_8_0_char_1.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>30</width>
+		<height>23</height>
+		<depth>1</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>0</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>7</xmin>
+			<ymin>1</ymin>
+			<xmax>25</xmax>
+			<ymax>22</ymax>
+		</bndbox>
+	</object>
+</annotation>

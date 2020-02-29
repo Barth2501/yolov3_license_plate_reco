@@ -1,0 +1,15 @@
+filename,width,height,class,xmin,ymin,xmax,ymax
+output_cropped_char_6.jpg,42,25,6,10,1,33,25
+output_cropped_char_0.jpg,43,24,6,8,1,36,23
+output_cropped_char_1.jpg,43,23,1,9,1,37,23
+output_cropped_char_5.jpg,42,24,0,8,1,33,24
+output_cropped_char_2.jpg,43,24,3,9,1,37,24
+truck_plate_8_0_char_5.jpg,30,22,0,6,1,25,22
+output_cropped_char_4.jpg,43,24,0,9,1,36,24
+test_0_0_char_9.jpg,27,22,0,4,1,24,22
+truck_plate_8_0_char_2.jpg,31,22,7,5,1,27,22
+test_0_0_char_8.jpg,27,18,1,6,1,21,18
+truck_plate_8_0_char_3.jpg,30,22,4,5,1,26,22
+output_cropped_char_3.jpg,43,24,3,10,1,35,24
+truck_plate_8_0_char_6.jpg,30,22,2,6,1,25,22
+truck_plate_8_0_char_1.jpg,30,23,0,7,1,25,22
