@@ -19,10 +19,9 @@ def main(train_dataset, val_dataset, size=28, batch_size=8, learning_rate=1e-3):
 
     model = tf.keras.models.load_model('./character_reco/models/CNN_saved_pre_trained_model')
 
-    first_layer = model.get_layer('cnn_conv_2')
+    first_layer = model.get_layer('cnn_maxpool_1')
     dataset.freeze_all(first_layer)
-    second_layer = model.get_layer('cnn_dense')
-    dataset.freeze_all(second_layer)
+
 
     model.summary()
 

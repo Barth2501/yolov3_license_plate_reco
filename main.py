@@ -61,7 +61,7 @@ def main(_argv):
     elif FLAGS.mode == 'yolo_batch_detect':
 
         # Detect the license plate position on multiple images
-        license_plate_detection(FLAGS.classes, FLAGS.yolo_weights, FLAGS.yolo_output, FLAGS.yolo_cropped_output, True, FLAGS.input_images, FLAGS.image, FLAGS.yolo_size, FLAGS.num_classes)        
+        license_plate_detection(FLAGS.classes, FLAGS.yolo_weights, FLAGS.yolo_output, FLAGS.yolo_cropped_output, True, FLAGS.input_images, None, FLAGS.yolo_size, FLAGS.num_classes)        
 
     elif FLAGS.mode == 'segment_only':
 
