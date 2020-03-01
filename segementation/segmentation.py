@@ -34,12 +34,3 @@ def main(input_dir, output_dir, image, batch_detection = False):
         plt.close()
         
         return characters
-
-# if __name__ == '__main__':
-
-#     FLAGS = flags.FLAGS
-
-#     flags.DEFINE_string('input_dir','../license_plate_detection/outputs/cropped_outputs',"Path of the input directory")
-#     flags.DEFINE_string('output_dir','../character_reco/data/jpg','Path of the output directory')
-
-#     app.run(main)
