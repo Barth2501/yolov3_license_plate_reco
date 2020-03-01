@@ -2,6 +2,13 @@
 
 This project is to be used for the french army in order to detect a license plate in an image and recognize its license plate.
 
+## How to test this algo
+
+```
+
+
+```
+
 ## Pipeline of the all model
 
 This model has three different steps : 
