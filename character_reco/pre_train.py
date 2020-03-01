@@ -10,7 +10,7 @@ from absl import app, flags, logging
 from datasets import mnist
 from models.cnn import CNN
 
-from dataset import transform_images
+from datasets.dataset import transform_images
 
 import cv2
 
@@ -22,23 +22,8 @@ models = {
     'cnn': CNN
 }
 
-# Allow memory growth + graph optimizations
-# gpus = tf.config.experimental.list_physical_devices('GPU')
-# tf.config.experimental.set_memory_growth(gpus[0], True)
-# tf.config.optimizer.set_jit(True)
 
 def main(argv):
-    # Create working directories
-    experiment_dir  = os.path.join(FLAGS.output_dir,
-        FLAGS.experiment_name, FLAGS.model, FLAGS.dataset)
-    
-    checkpoints_dir = os.path.join(experiment_dir, 'checkpoints')
-    saved_model_dir = os.path.join(experiment_dir, 'saved_models')
-    os.makedirs(checkpoints_dir, exist_ok=True)
-    os.makedirs(saved_model_dir, exist_ok=True)
-
-    # Logging training informations
-    logging.get_absl_handler().use_absl_log_file('logs', experiment_dir)
 
     # Load dataset, model and optimizer
     dataset = datasets[FLAGS.dataset]
@@ -57,10 +42,7 @@ def main(argv):
     train_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name='train_accuracy')
     test_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name='test_accuracy')
 
-    # define training and evaluation steps
-    # the @tf.function decorator allows automatic diffenciation without
-    # explicit call to the graph via a Session
-    # In other word, it is a fundamental component of the eager execution in TF 2.0
+   
     @tf.function
     def forward(features, training=False):
         print('build eval')
@@ -78,11 +60,6 @@ def main(argv):
         gradients = tape.gradient(loss, model.trainable_variables)
         optimizer.apply_gradients(zip(gradients, model.trainable_variables))
 
-    # Manage checkpoints
-    ckpt = tf.train.Checkpoint(
-        step=tf.Variable(0), model=model, optimizer=optimizer)
-    manager = tf.train.CheckpointManager(
-        ckpt, os.path.join(experiment_dir, 'checkpoints'), max_to_keep=1)
     
     # Restore checkpoint
     if FLAGS.restore: ckpt.restore(manager.latest_checkpoint)
@@ -129,7 +106,7 @@ def main(argv):
     img = transform_images(img, 28)
     model.predict(img)
     
-    tf.keras.models.save_model(model,'./models/{}_saved_pre_trained_model'.format('CNN'))
+    tf.keras.models.save_model(model,'./character_reco/models/{}_saved_pre_trained_model'.format('CNN'))
 
 
 if __name__ == '__main__':
@@ -151,5 +128,7 @@ if __name__ == '__main__':
     flags.DEFINE_bool('restore', False, "")
     flags.DEFINE_integer('batch_size', 128, "")
     flags.DEFINE_float('learning_rate', 0.001, "")
-
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+    tf.config.experimental.set_memory_growth(gpus[0], True)
+    tf.config.optimizer.set_jit(True)
     app.run(main)

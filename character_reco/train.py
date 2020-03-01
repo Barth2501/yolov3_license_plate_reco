@@ -6,14 +6,7 @@ from absl import flags, logging, app
 from absl.flags import FLAGS
 
 from .datasets import dataset as dataset
-# flags.DEFINE_string('dataset','./data/tfrecord/test.tfrecord','Path to the train tfrecord dataset')
-# flags.DEFINE_integer('size',28,'The size we want to resize the number')
-# flags.DEFINE_integer('batch_size',1,'Size of the batch')
-# flags.DEFINE_float('learning_rate', 0.001, "")
-# flags.DEFINE_integer('initial_step', 0, "")
-# flags.DEFINE_integer('final_step', 5000, "")
-# flags.DEFINE_integer('eval_freq', 1, "")
-# flags.DEFINE_integer('epochs', 1,'number of epochs')
+
 
 def main(train_dataset, val_dataset, size=28, batch_size=8, learning_rate=1e-3):
 
@@ -31,7 +24,6 @@ def main(train_dataset, val_dataset, size=28, batch_size=8, learning_rate=1e-3):
 
     val_dataset = dataset.load_tfrecord_dataset(val_dataset, size)
     val_dataset = train_dataset.shuffle(buffer_size=8)
-    # val_dataset = train_dataset.batch(batch_size)
 
     # Create training operations
 
@@ -99,4 +91,4 @@ def main(train_dataset, val_dataset, size=28, batch_size=8, learning_rate=1e-3):
 
         model.predict(img)
 
-        tf.keras.models.save_model(model,'./models/{}_saved_final_model'.format('CNN'))
+        tf.keras.models.save_model(model,'./character_reco/models/{}_saved_final_model'.format('CNN'))
