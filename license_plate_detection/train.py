@@ -16,32 +16,8 @@ from .datasets import dataset as dataset
 from .models import utils as utils
 
 
-# flags.DEFINE_string('dataset', './data/tfrecord/train_license_plate.tfrecord', 'path to train dataset as tfrecord')
-# flags.DEFINE_string('val_dataset', './data/tfrecord/valid_license_plate.tfrecord', 'path to validation dataset')
-# flags.DEFINE_string('classes', './data/license.plate', 'path to classes file')
-# flags.DEFINE_string('weights', './datasets/yolo/yolov3.tf', 'path to weights file')
-# flags.DEFINE_integer('batch_size', 8, 'batch size')
-# flags.DEFINE_string('output_dir', os.path.join('..', 'outputs'), "")
-# flags.DEFINE_integer('size', 416, 'image size')
-# flags.DEFINE_integer('num_classes', 80, 'number of classes in the model')
-# flags.DEFINE_float('learning_rate', 1e-3, 'learning rate')
-# flags.DEFINE_integer('epochs', 8,'number of epochs')
-
-
-def main(train_dataset, val_dataset, weights, classes, size=416, num_classes=80, batch_size=8, learning_rate=1e-3, epochs=8 ):
+def main(train_dataset, val_dataset, weights, classes, size=416, num_classes=80, batch_size=2, learning_rate=1e-3, epochs=8 ):
     
-    # Create working directories
-    # experiment_dir  = os.path.join(FLAGS.output_dir,
-    #     FLAGS.experiment_name, FLAGS.model, FLAGS.dataset)
-    
-    # checkpoints_dir = os.path.join(experiment_dir, 'checkpoints')
-    # saved_model_dir = os.path.join(experiment_dir, 'saved_models')
-    # os.makedirs(checkpoints_dir, exist_ok=True)
-    # os.makedirs(saved_model_dir, exist_ok=True)
-
-    # Logging training informations
-    # logging.get_absl_handler().use_absl_log_file('logs', experiment_dir)
-
     # Load Model
     model = YoloV3(size, training=True, classes=num_classes)
     model.load_weights(weights)
@@ -52,11 +28,11 @@ def main(train_dataset, val_dataset, weights, classes, size=416, num_classes=80,
     # freeze_all(model)
     model.summary()
 
+    # Load the achors and anchor_masks which are going to be used on the label
     anchors = yolo_anchors
     anchor_masks = yolo_anchor_masks
 
     # Read data
-
     train_dataset = dataset.load_tfrecord_dataset(
             train_dataset, classes, size)
     train_dataset = train_dataset.shuffle(buffer_size=512)
@@ -115,7 +91,5 @@ def main(train_dataset, val_dataset, weights, classes, size=416, num_classes=80,
         avg_loss.reset_states()
         avg_val_loss.reset_states()
         model.save_weights(
-                'checkpoints/yolov3_train_{}.tf'.format(epoch))
-
-# if __name__=='__main__':
-#     app.run(main)
+                'license_plate_detection/checkpoints/yolov3_train_{}.tf'.format(epoch))
+        logging.info("Saving checkpoint on license_plate_detection/checkpoints/yolov3_train_{}.tf".format(epoch))

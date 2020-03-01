@@ -4,10 +4,41 @@ This project is to be used for the french army in order to detect a license plat
 
 ## How to test this algo
 
+You can type these lines of code to have an exmaple of how the all model works.
+
+Download the weight of the pre trained yolo model:
+```
+$ cd license_plate_detection/datasets/yolo/
+$ wget https://pjreddie.com/media/files/yolov3.weights -O yolov3.weights
+$ python convert.py
+```
+
+Fine tune the detection model with the current tfrecord files:
+```
+$ cd ..
+$ cd ..
+$ cd ..
+$ python main.py --mode yolo_fine_tune
+```
+
+Apply the trained model to a random image:
+```
+$ python main.py --mode predict --image ./license_plate_detection/data/jpg/test/truck_plate_3.jpg
+```
+
+N.B.: you can also use the other mode like this:
+
+Use the trained model to predict a batch of cropped license plate:
+```
+$ python main.py --mode yolo_batch_detect
+```
+
+Fine tune the recognition model with the current tfrecord file:
+```
+$ python main.py --mode cnn_fine_tune
 ```
 
 
-```
 
 ## Pipeline of the all model
 
@@ -24,8 +55,8 @@ On this model you can or :
         - change the pre-train weights of the yolo model:
 
             ```
-            $ cd license_plate_detection/datasets/yolo/
-            $ wget https://pjreddie.com/media/files/yolov3.weights -O data/yolov3.weights
+            $ cd license_plate_detection/datasets/yolo
+            $ wget https://pjreddie.com/media/files/yolov3.weights -O yolov3.weights
             $ python convert.py
             ```
 
