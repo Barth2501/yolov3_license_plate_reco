@@ -138,3 +138,36 @@ $ python generate_tfrecord --csv_input ./license_plate_detection/data/csv/train_
 ```
 
 
+### Prediction
+
+In order to detect where the license plate is on the image, you can use the following flags:
+
+        --classes: path to classes file
+            (default: './license_plate_detection/data/license.plate')
+        --yolo_weights: path to weights file
+            (default: './license_plate_detection/checkpoints/yolov3_train_8.tf')
+        --yolo_output: path to output image
+            (default: './license_plate_detection/outputs/global_outputs/')
+        --yolo_cropped_output: path to output cropped image
+            (default: './license_plate_detection/outputs/cropped_outputs/')
+        --batch_detection: False if you want to detect only one image
+            (default: False)
+        --input_images: path to input images folder
+            (default: './license_plate_detection/data/jpg/test/')
+        --image: Image you want to predict, to use only if batch detection is disabled
+            (no default value)
+        --yolo_size: resize image to (default: 416)
+        --num_classes: number of classes in the model (default: 80)
+        
+To segment the cropped image, you can use the following flags:
+
+        --yolo_cropped_output: path to output cropped image
+            (default: './license_plate_detection/outputs/cropped_outputs/')
+        --seg_output: dir where you want to save the segmented characters
+            (default: './character_reco/data/jpg')
+        --image: Image you want to predict, to use only if batch detection is disabled
+            (no default value)
+        --batch_detection: False if you want to detect only one image
+            (default: False)
+
+        
