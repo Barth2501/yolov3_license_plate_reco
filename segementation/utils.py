@@ -104,7 +104,7 @@ def segment(img, save=False,name=None):
 
         # Check if the character detection have been done correctly
         cv2.imshow('Binarization of the license plate',test)
-        cv2.waitKey(1000)
+        cv2.waitKey(2000)
 
         # Character detection along the horizontal axis
         f = 0
@@ -161,6 +161,9 @@ def crop_char_and_save(character, name=None):
     # take the appropriate height
     rectv = []
     rectv.append(rect_v[0])
+    if len(rect_v)<2:
+        return None
+        
     rectv.append(rect_v[1])
     maxi = int(rect_v[1]) - int(rect_v[0])
     for i in range(len(rect_v) - 1):

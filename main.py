@@ -3,6 +3,7 @@ from segementation.segmentation import main as segementation
 from character_reco.predict import main as character_reco
 from license_plate_detection.train import main as yolo_train
 from character_reco.train import main as cnn_train
+import tensorflow as tf
 from absl import app, flags, logging
 
 
@@ -24,7 +25,7 @@ flags.DEFINE_string('yolo_cropped_output', './license_plate_detection/outputs/cr
 flags.DEFINE_string('seg_output','./character_reco/data/jpg','dir where you want to save the segmented characters')
 flags.DEFINE_string('yolo_train_dataset', './license_plate_detection/data/tfrecord/train_license_plate.tfrecord', 'path to train dataset as tfrecord')
 flags.DEFINE_string('yolo_val_dataset', './license_plate_detection/data/tfrecord/valid_license_plate.tfrecord', 'path to validation dataset')
-flags.DEFINE_integer('yolo_batch_size', 8, 'Yolo model batch size')
+flags.DEFINE_integer('yolo_batch_size', 2, 'Yolo model batch size')
 flags.DEFINE_float('yolo_learning_rate', 1e-3, 'learning rate of yolo model')
 flags.DEFINE_integer('yolo_epochs', 8,'number of epochs of yolo model')
 
@@ -36,6 +37,11 @@ flags.DEFINE_float('cnn_learning_rate', 0.001, "")
 
 
 def main(_argv):
+
+    # We will use only one gpu which will be enough
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+    tf.config.experimental.set_memory_growth(gpus[0], True)
+    tf.config.optimizer.set_jit(True)
 
     if FLAGS.mode == 'predict':
 
