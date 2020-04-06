@@ -20,6 +20,8 @@ def main(input_dir, output_dir, image, batch_detection = False):
                 crop_char_and_save(character, name=os.path.join(output_dir, image_name.split('.')[0]) + '_char_' + str(i))
     
     else:
+        if isinstance(image,str):
+            image = cv2.imread(image)
         plt.imshow(image, cmap='gray')
         plt.title('Cropped image')
         plt.pause(1)

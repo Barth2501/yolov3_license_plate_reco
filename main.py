@@ -1,5 +1,6 @@
 from license_plate_detection.detect import main as license_plate_detection
 from segementation.segmentation import main as segementation
+from segementation.segmentation2 import main as segmentation2
 from character_reco.predict import main as character_reco
 from license_plate_detection.train import main as yolo_train
 from character_reco.train import main as cnn_train
@@ -39,9 +40,9 @@ flags.DEFINE_float('cnn_learning_rate', 0.001, "")
 def main(_argv):
 
     # We will use only one gpu which will be enough
-    gpus = tf.config.experimental.list_physical_devices('GPU')
-    tf.config.experimental.set_memory_growth(gpus[0], True)
-    tf.config.optimizer.set_jit(True)
+    # gpus = tf.config.experimental.list_physical_devices('GPU')
+    # tf.config.experimental.set_memory_growth(gpus[0], True)
+    # tf.config.optimizer.set_jit(True)
 
     if FLAGS.mode == 'predict':
 
@@ -74,7 +75,7 @@ def main(_argv):
         # Segment and save the image
         # N.B. enable the batch_detection option if you want to save you sgemented
         # characters in the FLAGS.seg_output folder
-        segementation(FLAGS.yolo_cropped_output, FLAGS.seg_output, FLAGS.image, FLAGS.batch_detection)
+        segmentation2(FLAGS.yolo_cropped_output, FLAGS.seg_output, FLAGS.image, FLAGS.batch_detection)
 
     elif FLAGS.mode == 'cnn_fine_tune':
 
