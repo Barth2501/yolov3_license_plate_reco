@@ -258,6 +258,41 @@ def rotate_img(img):
     rotated_img = cv2.warpAffine(img, M, (w,h))
     return rotated_img
 
+def black_or_white(img):
+    """
+    This function is used to know if the digits on the license plate are written 
+    in black or in white. If they are in white we will inverse the grays of the 
+    image
+    """
+    res_img = img.copy()
+
+    # We vertically sum the gray value of the image and retrieve 
+    # only the middle part of the image
+    sum_x_img = list(np.sum(img, axis=1).astype(np.int16))
+    middle_sum_x_img = sum_x_img[len(sum_x_img)*1//4:len(sum_x_img)*3//4+1]
+    
+    # We wmoothen the curve
+    yhat = savgol_filter(middle_sum_x_img, 3, 1)
+
+    # And calculate its derivative
+    d_yhat = [(yhat[i+2]-yhat[i])/2 for i in range(len(yhat)-2)]
+
+    # We calculate the sum of half the image in order to know
+    # if the global sign is positive or negative
+    first_middle_sum = sum(d_yhat[:len(d_yhat)//2+1])
+    sec_middle_sum = sum(d_yhat[len(d_yhat)//2:])
+
+    # This means the digits are black
+    if first_middle_sum<0 and sec_middle_sum>0:
+        res_img = 255 - img.copy()
+    # This means the digits are white
+    elif first_middle_sum>0 and sec_middle_sum<0:
+        continue
+    else:
+        raise ValueError('We cannot know if the digits of the license plate are black or white, see black_of_white function in the documentation')
+    return res_img
+        
+
 def cropping_border(img):
    
     # This list contains the gray color accumulated along the rows

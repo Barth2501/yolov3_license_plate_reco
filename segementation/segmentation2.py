@@ -24,8 +24,12 @@ def main(input_dir, output_dir, image, batch_detection = False):
                 # Egalisation of the image
                 eg_img = egalisation_img(exp_img)
 
+                # Detection of the color of the digits of the license plate
+                # If they are black we inverse th grays of the image
+                b_img = black_or_white(eg_img)
+                
                 # Vertical cut
-                cut_img = cropping_border(eg_img)
+                cut_img = cropping_border(b_img)
 
                 # Binarization
                 b_img = binarization(cut_img)
