@@ -26,7 +26,7 @@ def parse_tfrecord(tfrecord, size):
     x_train = transform_images(x_train, size)
     class_label = tf.sparse.to_dense(
         x['image/object/class/label'])
-    y_train = tf.one_hot(class_label, 10)
+    y_train = tf.one_hot(class_label, 36)
     y_train = tf.squeeze(y_train, 0)
     return x_train, y_train
 

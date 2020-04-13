@@ -33,7 +33,7 @@ class CNN(Model):
         self.dense_layer = Dense(500, activation=tf.nn.relu,
             name='{}_dense'.format(name))
         
-        self.output_layer = Dense(10, activation=tf.nn.softmax)
+        self.output_layer = Dense(36, activation=tf.nn.softmax)
     
     def call(self, inputs, training=False):
         net = self.input_layer(inputs)

@@ -69,8 +69,14 @@ def main(input_dir, output_dir, image, batch_detection = False):
         plt.imshow(eg_img, cmap='gray')
         plt.title('Cropped image')
         plt.pause(1)
+        # Detection of the color of the digits of the license plate
+        # If they are black we inverse th grays of the image
+        b_img = black_or_white(eg_img)
+        plt.imshow(b_img, cmap='gray')
+        plt.title('black or white image')
+        plt.pause(1)
         # Vertical cut
-        cut_img = cropping_border(eg_img)
+        cut_img = cropping_border(b_img)
         plt.imshow(cut_img, cmap='gray')
         plt.title('Cropped image')
         plt.pause(1)

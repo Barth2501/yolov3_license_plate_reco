@@ -4,10 +4,10 @@ import numpy as np
 import tensorflow as tf
 import random
 import matplotlib.pyplot as plt
-
+import time
 from absl import app, flags, logging
 
-from datasets import mnist
+from datasets import emnist
 from models.cnn import CNN
 
 from datasets.dataset import transform_images
@@ -15,7 +15,7 @@ from datasets.dataset import transform_images
 import cv2
 
 datasets = {
-    'mnist': mnist
+    'emnist': emnist
 }
 
 models = {
@@ -30,6 +30,12 @@ def main(argv):
     train_dataset = dataset.load(FLAGS.batch_size, split='train')
     test_dataset = dataset.load(FLAGS.batch_size, split='test')
 
+    for example in train_dataset.take(10):
+        image, label = example["image"], example["label"]
+
+        plt.imshow(image.numpy()[0, :, :, 0].astype(np.float32), cmap=plt.get_cmap("gray"))
+        plt.pause(3)
+    
     model = models[FLAGS.model](ch=FLAGS.width_multiplier)
     model.build(input_shape=(FLAGS.batch_size, 28, 28, 1))
 
@@ -93,14 +99,10 @@ def main(argv):
             test_loss.reset_states()
             test_accuracy.reset_states()
         
-        if step % FLAGS.save_freq == 0 and step != 0:
-            manager.save()  
-        
-        ckpt.step.assign_add(1)
         if step == FLAGS.final_step + 1: break
     
     img_raw = tf.image.decode_image(
-            open('../output.jpg', 'rb').read(), channels=1)
+            open('./data/jpg/train/output_cropped_char_0.jpg', 'rb').read(), channels=1)
     img = tf.expand_dims(img_raw, 0)
 
     img = transform_images(img, 28)
@@ -116,7 +118,7 @@ if __name__ == '__main__':
     flags.DEFINE_string('output_dir', os.path.join('..', 'outputs'), "")
     flags.DEFINE_string('experiment_name', 'test', "")
 
-    flags.DEFINE_enum('dataset', 'mnist', ['mnist'], "")
+    flags.DEFINE_enum('dataset', 'emnist', ['emnist'], "")
     flags.DEFINE_enum('model', 'cnn', ['cnn'], "")
     flags.DEFINE_integer('width_multiplier', 64, "")
 
@@ -128,7 +130,7 @@ if __name__ == '__main__':
     flags.DEFINE_bool('restore', False, "")
     flags.DEFINE_integer('batch_size', 128, "")
     flags.DEFINE_float('learning_rate', 0.001, "")
-    gpus = tf.config.experimental.list_physical_devices('GPU')
-    tf.config.experimental.set_memory_growth(gpus[0], True)
-    tf.config.optimizer.set_jit(True)
+    # gpus = tf.config.experimental.list_physical_devices('GPU')
+    # tf.config.experimental.set_memory_growth(gpus[0], True)
+    # tf.config.optimizer.set_jit(True)
     app.run(main)
